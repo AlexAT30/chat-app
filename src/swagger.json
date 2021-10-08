@@ -1,0 +1,100 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ChatAPI",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9000/api/v1",
+      "description": "Dev server"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Obtiene una lista de usuarios"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "Agrega un usuario a la lista"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Se ha actualizado el usuario en el sistema"
+          }
+        },
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "La id del usuario por actualizar.",
+          "schema": {
+            "type": "number"
+          }
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "user": {
+        "type": "object",
+        "required": ["firstname", "lastname", "email", "password", "phone"],
+        "properties": {
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña minima de 8 caracteres."
+          },
+          "phone": {
+            "type": "string",
+            "example": "+52(###)#######"
+          },
+          "profile_image": {
+            "type": "string",
+            "example": "https://imagen.com/imagen-de-prueba.png"
+          }
+        }
+
+      }
+    }
+  }
+
+}
